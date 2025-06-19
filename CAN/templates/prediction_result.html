@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results - Colorectal Cancer Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Colorectal Cancer Prediction System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/predict">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/results">Results</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Prediction Results</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4 h-100">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">KNN Model</h5>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="prediction-result mb-3">
+                                            <h2 class="mb-0">{{ "Positive" if results.knn.prediction == 1 else "Negative" }}</h2>
+                                            <p class="text-muted">DFS Event Prediction</p>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ results.knn.probability }}%">
+                                                {{ "%.1f"|format(results.knn.probability) }}%
+                                            </div>
+                                        </div>
+                                        <p>Confidence Level</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card mb-4 h-100">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">Naive Bayes Model</h5>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="prediction-result mb-3">
+                                            <h2 class="mb-0">{{ "Positive" if results.nb.prediction == 1 else "Negative" }}</h2>
+                                            <p class="text-muted">DFS Event Prediction</p>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ results.nb.probability }}%">
+                                                {{ "%.1f"|format(results.nb.probability) }}%
+                                            </div>
+                                        </div>
+                                        <p>Confidence Level</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4">
+                            <h5>What does this mean?</h5>
+                            <p>
+                                A "Positive" prediction for DFS (Disease-Free Survival) event indicates a higher likelihood of disease recurrence or progression.
+                                A "Negative" prediction suggests a lower likelihood of disease recurrence.
+                            </p>
+                            <p class="mb-0">
+                                <strong>Note:</strong> This prediction is based on statistical models and should be interpreted by healthcare professionals in conjunction with other clinical information.
+                            </p>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                            <a href="/predict" class="btn btn-primary">Make Another Prediction</a>
+                            <a href="/results" class="btn btn-outline-primary">View Model Performance</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

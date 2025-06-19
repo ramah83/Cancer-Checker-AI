@@ -1,0 +1,139 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 15px 20px;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+
+.prediction-result h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.progress {
+    height: 25px;
+    border-radius: 15px;
+}
+
+.progress-bar {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+footer {
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Medical theme colors */
+.bg-primary {
+    background-color: #3f51b5 !important;
+}
+
+.btn-primary {
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+}
+
+.btn-primary:hover {
+    background-color: #303f9f;
+    border-color: #303f9f;
+}
+
+.bg-success {
+    background-color: #4caf50 !important;
+}
+
+.btn-success {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+.btn-success:hover {
+    background-color: #43a047;
+    border-color: #43a047;
+}
+
+.text-primary {
+    color: #3f51b5 !important;
+}
+
+.text-success {
+    color: #4caf50 !important;
+}
+
+.form-control:focus {
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 0.25rem rgba(63, 81, 181, 0.25);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.prediction-result h2 {
+    animation: pulse 2s infinite;
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .prediction-result h2 {
+        font-size: 2rem;
+    }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(63, 81, 181, 0.05);
+}
+
+.table-primary {
+    background-color: rgba(63, 81, 181, 0.2);
+}

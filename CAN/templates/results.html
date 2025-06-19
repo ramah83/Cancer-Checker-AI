@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Results - Colorectal Cancer Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Colorectal Cancer Prediction System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/predict">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/results">Results</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2 class="mb-4 text-center">Model Evaluation Results</h2>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">K-Nearest Neighbors (KNN)</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <h5>Accuracy: {{ "%.2f"|format(knn_results.accuracy * 100) }}%</h5>
+                        </div>
+                        
+                        <div class="text-center mb-4">
+                            <img src="{{ knn_results.plot }}" alt="KNN Confusion Matrix" class="img-fluid" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image+Available'">
+                            <p class="text-muted mt-2">Confusion Matrix</p>
+                        </div>
+                        
+                        <h5>Classification Report</h5>
+                        <table class="table table-bordered table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Precision</th>
+                                    <th>Recall</th>
+                                    <th>F1-Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for class_label, metrics in knn_results.report.items() %}
+                                    {% if class_label not in ['accuracy', 'macro avg', 'weighted avg'] %}
+                                    <tr>
+                                        <td>{{ class_label }}</td>
+                                    <td>{{ "%.2f"|format(metrics["precision"] * 100) }}%</td>
+                                    <td>{{ "%.2f"|format(metrics["recall"] * 100) }}%</td>
+                                    <td>{{ "%.2f"|format(metrics["f1-score"] * 100) }}%</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">Naive Bayes</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <h5>Accuracy: {{ "%.2f"|format(nb_results.accuracy * 100) }}%</h5>
+                        </div>
+                        
+                        <div class="text-center mb-4">
+                            <img src="{{ nb_results.plot }}" alt="Naive Bayes Confusion Matrix" class="img-fluid" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image+Available'">
+                            <p class="text-muted mt-2">Confusion Matrix</p>
+                        </div>
+                        
+                        <h5>Classification Report</h5>
+                        <table class="table table-bordered table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Precision</th>
+                                    <th>Recall</th>
+                                    <th>F1-Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for class_label, metrics in nb_results.report.items() %}
+                                    {% if class_label not in ['accuracy', 'macro avg', 'weighted avg'] %}
+                                    <tr>
+                                        <td>{{ class_label }}</td>
+                                        <td>{{ "%.2f"|format(metrics.precision * 100) }}%</td>
+                                        <td>{{ "%.2f"|format(metrics.recall * 100) }}%</td>
+                                        <td>{{ "%.2f"|format(metrics['f1-score'] * 100) }}%</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/predict" class="btn btn-primary btn-lg">Make Predictions</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
