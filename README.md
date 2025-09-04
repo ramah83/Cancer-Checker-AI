@@ -59,10 +59,7 @@ A machine learning web application designed to **predict cancer presence** based
 │   │   ├── scaler.pkl
 │   │   └── feature_names.pkl
 │   └── main.py           ← Flask entry point
-│
-├── Ropot/
-│   └── robot.py          ← (Extra logic or AI component)
-│
+|
 ├── *.csv                 ← Cancer-related datasets
 ├── requirements.txt      ← Python dependencies
 └── README.md             ← This file
